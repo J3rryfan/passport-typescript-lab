@@ -2,14 +2,9 @@ import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import session from "express-session";
 import path from "path";
+import passportMiddleware from './middleware/passportMiddleware';
 
-// declare module 'express-session' {
-//   export interface SessionData {
-//     passport: { [key: string]: any };
-//   }
-// }
-
-const port = process.env.port || 8000;
+const port = process.env.port || 8001;
 
 const app = express();
 
@@ -28,7 +23,6 @@ app.use(
   })
 );
 
-import passport from "./middleware/passport";
 import authRoute from "./routes/authRoute";
 import indexRoute from "./routes/indexRoute";
 
@@ -36,8 +30,7 @@ import indexRoute from "./routes/indexRoute";
 app.use(express.json());
 app.use(expressLayouts);
 app.use(express.urlencoded({ extended: true }));
-app.use(passport.initialize());
-app.use(passport.session());
+passportMiddleware(app);
 
 app.use((req, res, next) => {
   console.log(`User details are: `);

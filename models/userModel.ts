@@ -17,17 +17,26 @@ const database = [
     email: "jonathan123@gmail.com",
     password: "jonathan123!",
   },
+  {
+    id: 4,
+    name: "Scott Chen",
+    email: "ScottChen@gmail.com",
+    password: "ScottChen!",
+  }
 ];
 
 const userModel = {
-  findOne: (email: string) => {
+
+  /* FIX ME (types) 😭 */
+  findOne: (email: any) => {
     const user = database.find((user) => user.email === email);
     if (user) {
       return user;
     }
     throw new Error(`Couldn't find user with email: ${email}`);
   },
-  findById: (id: number) => {
+  /* FIX ME (types) 😭 */
+  findById: (id: any) => {
     const user = database.find((user) => user.id === id);
     if (user) {
       return user;

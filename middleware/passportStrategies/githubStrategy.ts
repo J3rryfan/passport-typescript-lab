@@ -1,3 +1,4 @@
+import { userInfo } from 'os';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import { PassportStrategy } from '../../interfaces/index';
 
@@ -8,9 +9,14 @@ const githubStrategy: GitHubStrategy = new GitHubStrategy(
         callbackURL: "",
         passReqToCallback: true,
     },
-    
     /* FIX ME 😭 */
-    async (req: any, accessToken: any, refreshToken: any, profile: any, done: any) => {},
+
+    
+    
+    async (req: any, accessToken:any, refreshToken: any, profile: any, done: any) => {
+
+    
+    },
 );
 
 const passportGitHubStrategy: PassportStrategy = {

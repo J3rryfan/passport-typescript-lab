@@ -44,7 +44,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", indexRoute);
+app.use("/", indexRoute); // indexRoute is the default route
 app.use("/auth", authRoute);
 
 app.listen(port, () => {

@@ -4,10 +4,10 @@ import { getUserByEmailIdAndPassword, getUserById} from "../../controllers/userC
 import { PassportStrategy } from '../../interfaces/index';
 
 const localStrategy = new LocalStrategy(
-  {
-    usernameField: "email",
+  { 
+    usernameField: "email", 
     passwordField: "password",
-  },
+  }, 
   (email, password, done) => {
     const user = getUserByEmailIdAndPassword(email, password);
     return user

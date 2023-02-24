@@ -1,6 +1,8 @@
 import express from "express";
 import passport from 'passport';
 import { forwardAuthenticated } from "../middleware/checkAuth";
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const router = express.Router();
 
@@ -16,6 +18,18 @@ router.post(
     /* FIX ME: 😭 failureMsg needed when login fails */
   })
 );
+
+router.get("/github", (req, res) => {
+  passport.authenticate('github', {scope: ['user: email']});
+
+})
+
+router.get("/github/callback", (req, res)=> {
+  passport.authenticate('github',{
+    successRedirect: "/dashboard",
+    failureRedirect: "/auth/login",
+  })
+})
 
 router.get("/logout", (req, res) => {
   req.logout((err) => {

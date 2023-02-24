@@ -4,6 +4,12 @@ import { forwardAuthenticated } from "../middleware/checkAuth";
 
 const router = express.Router();
 
+declare module "express-session" {
+  interface SessionData {
+    messages: { [key:string]: any}
+  }
+}
+
 router.get("/login", forwardAuthenticated, (req, res) => {
   res.render("login", {messages: req.session.messages});
 });
@@ -13,7 +19,7 @@ router.post(
   passport.authenticate("local", {
     successRedirect: "/dashboard",
     failureRedirect: "/auth/login",
-    failureMessage: "Incorrect password"
+    failureMessage: true
     /* FIX ME: 😭 failureMsg needed when login fails */
   })
 );

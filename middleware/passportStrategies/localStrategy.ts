@@ -14,6 +14,7 @@ const localStrategy = new LocalStrategy(
       ? done(null, user)
       : done(null, false, {
           message: "Your login details are not valid. Please try again",
+          
         });
   }
 );

@@ -13,7 +13,11 @@ const localStrategy = new LocalStrategy(
     return user
       ? done(null, user)
       : done(null, false, {
-          message: "Your login details are not valid. Please try again",
+
+          message: "password is incorrect",
+          // email: "Cannot find user with that email: " + email,
+          
+          
           
         });
   }

@@ -1,25 +1,29 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { getUserByEmailIdAndPassword, getUserById} from "../../controllers/userController";
-import { PassportStrategy } from '../../interfaces/index';
+import {
+  getUserByEmailIdAndPassword,
+  getUserById,
+} from "../../controllers/userController";
+import { PassportStrategy } from "../../interfaces/index";
 
 const localStrategy = new LocalStrategy(
-  { 
-    usernameField: "email", 
+  {
+    usernameField: "email",
     passwordField: "password",
-  }, 
+  },
   (email, password, done) => {
-    const user = getUserByEmailIdAndPassword(email, password);
-    return user
-      ? done(null, user)
-      : done(null, false, {
-
-          message: "password is incorrect",
-          // email: "Cannot find user with that email: " + email,
-          
-          
-          
-        });
+    try {
+      const user = getUserByEmailIdAndPassword(email, password);
+      return user 
+        ? done(null, user)
+        : done(null, false, {
+            message: "password is incorrect",
+        }); 
+    } catch (error) {
+       done(null, false, {
+        message: "Couldn't find user with email: " + email,
+      });
+    }
   }
 );
 
@@ -43,7 +47,7 @@ passport.deserializeUser(function (id: any, done: any) {
 });
 
 const passportLocalStrategy: PassportStrategy = {
-  name: 'local',
+  name: "local",
   strategy: localStrategy,
 };
 

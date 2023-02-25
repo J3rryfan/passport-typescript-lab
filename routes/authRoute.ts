@@ -1,17 +1,19 @@
 import express from "express";
-import passport from 'passport';
+import passport from "passport";
 import { forwardAuthenticated } from "../middleware/checkAuth";
 
 const router = express.Router();
 
 declare module "express-session" {
   interface SessionData {
-    messages: { [key:string]: any}
+    messages: { [key: string]: any };
   }
 }
 
 router.get("/login", forwardAuthenticated, (req, res) => {
-  res.render("login", {messages: req.session.messages});
+  const message = req.session.messages? req.session.messages[0] : "";
+  req.session.messages = [];
+  res.render("login", { message });
 });
 
 router.post(
@@ -19,8 +21,7 @@ router.post(
   passport.authenticate("local", {
     successRedirect: "/dashboard",
     failureRedirect: "/auth/login",
-    failureMessage: true
-    /* FIX ME: 😭 failureMsg needed when login fails */
+    failureMessage: true,
   })
 );
 

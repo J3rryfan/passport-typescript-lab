@@ -1,16 +1,14 @@
 import express from "express";
-import passport from 'passport';
+import passport from "passport";
 import { forwardAuthenticated } from "../middleware/checkAuth";
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 dotenv.config();
 
 const router = express.Router();
 
-
 router.get("/login", forwardAuthenticated, (req, res) => {
   res.render("login");
-
-})
+});
 
 router.post(
   "/login",
@@ -21,17 +19,17 @@ router.post(
   })
 );
 
-router.get("/github", (req, res) => {
-  passport.authenticate('github', {scope: ['user: email']});
+router.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user: email"] })
+);
 
-})
-
-router.get("/login/github/callback", (req, res)=> {
-  passport.authenticate('github',{
+router.get("/login/github/callback", (req, res) => {
+  passport.authenticate("github", {
     successRedirect: "/dashboard",
     failureRedirect: "/auth/login",
-  })
-})
+  });
+});
 
 router.get("/logout", (req, res) => {
   req.logout((err) => {

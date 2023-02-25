@@ -15,11 +15,22 @@ export default class PassportConfig {
      passport strategies are added when this class is created. ⭐️
     */
 
+    //  Solution: You should refactor this class to take a constructor
+    //  which receives strategies: PassportStrategy[]. Internally...call 
+    //  the addStrategies method within the constructor and make addStragies
+    //  private from the outside world. This way, we can GUARANTEE that our
+    //  passport strategies are added when this class is created.
+
+    
      
+     constructor(strategies: PassportStrategy[]){
+        
+        this.addStrategies(strategies);
+     }
 
+  
 
-
-    addStrategies(strategies: PassportStrategy[]): void {
+   private addStrategies(strategies: PassportStrategy[]): void {
         strategies.forEach((passportStrategy: PassportStrategy) => {
             passport.use(passportStrategy.name, passportStrategy.strategy);
         });

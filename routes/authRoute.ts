@@ -6,8 +6,10 @@ dotenv.config();
 
 const router = express.Router();
 
+
 router.get("/login", forwardAuthenticated, (req, res) => {
   res.render("login");
+
 })
 
 router.post(
@@ -24,7 +26,7 @@ router.get("/github", (req, res) => {
 
 })
 
-router.get("/github/callback", (req, res)=> {
+router.get("/login/github/callback", (req, res)=> {
   passport.authenticate('github',{
     successRedirect: "/dashboard",
     failureRedirect: "/auth/login",

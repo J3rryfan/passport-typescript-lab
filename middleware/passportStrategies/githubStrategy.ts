@@ -1,18 +1,21 @@
-import { userInfo } from 'os';
+import { Request } from 'express';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import { PassportStrategy } from '../../interfaces/index';
+// import * as dotenv from 'dotenv';
+require('dotenv').config()
 
 const githubStrategy: GitHubStrategy = new GitHubStrategy(
     {
-        clientID: "1b536bf68fe0ff6ea55e",
-        clientSecret: "868bebc26253acf9a916db5b908b28c14b706332",
+        clientID: process.env.GITHUB_ID ? process.env.GITHUB_ID : "",
+        clientSecret: process.env.GITHUB_SECRET? process.env.GITHUB_SECRET : "",
         callbackURL: "http://localhost:8001/auth/login/github/callback",
+        passReqToCallback: true
     },
     /* FIX ME 😭 */
 
 
-    async (req: any, accessToken: any, refreshToken: any, profile: string, done: any,) => {
-        console.log(profile); 
+    async (req: Request, accessToken: string, refreshToken: string, profile: any, done: (err?: Error | null, profile?: any) => void) => {
+        console.log("PROFILE: ", profile); 
         done (null, profile);
 
     },

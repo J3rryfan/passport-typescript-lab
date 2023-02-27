@@ -10,8 +10,10 @@ const app = express();
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+
 app.use(
   session({
+
     secret: "secret",
     resave: false,
     saveUninitialized: false,
@@ -50,3 +52,5 @@ app.use("/auth", authRoute);
 app.listen(port, () => {
   console.log(`🚀 Server has started on port ${port}`);
 });
+
+

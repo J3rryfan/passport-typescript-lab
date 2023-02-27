@@ -10,6 +10,10 @@ router.get("/login", forwardAuthenticated, (req, res) => {
   res.render("login");
 });
 
+router.get("/admin", (req, res)=> {
+  res.render("admin")
+})
+
 router.post(
   "/login",
   passport.authenticate("local", {
@@ -39,3 +43,18 @@ router.get("/logout", (req, res) => {
 });
 
 export default router;
+
+
+
+/* 
+  Every user in your database should have a role. The role can either be 
+  "admin" or "user".
+  Admin users can visit a secret page called /admin. 
+  ONLY admins should be able to see this page. When they go to this page, 
+  it should show the Admin a list of all the current sessions, and the ID of the user that session belongs to. 
+  Next to each session should be a "revoke" button. When clicked, it should destroy that user's session.
+
+*/
+
+
+

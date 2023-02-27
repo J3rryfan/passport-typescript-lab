@@ -24,12 +24,12 @@ router.get(
   passport.authenticate("github", { scope: ["user: email"] })
 );
 
-router.get("/login/github/callback", (req, res) => {
+router.get("/login/github/callback", 
   passport.authenticate("github", {
     successRedirect: "/dashboard",
     failureRedirect: "/auth/login",
-  });
-});
+  })
+);
 
 router.get("/logout", (req, res) => {
   req.logout((err) => {

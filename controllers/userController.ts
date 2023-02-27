@@ -21,7 +21,12 @@ function isUserValid(user: any, password: string) {
   return user.password === password;
 }
 
+const createNewUser = (id: number, name: string) => {
+   return userModel.createNewUser(id, name);
+}
+
 export {
   getUserByEmailIdAndPassword,
   getUserById,
+  createNewUser
 };

@@ -7,6 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <% sids.forEach(sid => { %>
+        <% userIDs.forEach(userID => { %>
+            <p>Session ID: <%= sid %></P>
+            <p>User ID: <%= userID %></p>
+         
+        <% }) %>
+     
+    <% }) %>
 </body>
 </html>

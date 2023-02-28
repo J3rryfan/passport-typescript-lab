@@ -7,13 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <% sids.forEach(sid => { %>
-        <% userIDs.forEach(userID => { %>
-            <p>Session ID: <%= sid %></P>
-            <p>User ID: <%= userID %></p>
-         
+    <% sessionData.forEach(session => { %>
+        <p>Session ID: <%= session.sid %></P>
+        <p>User ID: <%= session.userid %></p>
+        
+        <form action="/revoke-session/<%= session.sid %>" method="post">
+            <button type="submit">Revoke session</button>
+        </form>
         <% }) %>
+        
+        
+   
      
-    <% }) %>
+
 </body>
 </html>

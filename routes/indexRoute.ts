@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { ensureAuthenticated } from "../middleware/checkAuth";
+import { ensureAdminPrivilege, ensureAuthenticated } from "../middleware/checkAuth";
 
 router.get("/", (req, res) => {
   res.send("welcome");
@@ -12,27 +12,33 @@ router.get("/dashboard", ensureAuthenticated, (req, res) => {
   });
 });
 
-
-router.get("/admin", async (req, res) => {
+router.get("/admin", ensureAuthenticated, ensureAdminPrivilege, async (req, res) => {
   const storeSession = req.sessionStore;
-  const result: {id: number, sid: string}[] = []
+  const result: { userid: number; sid: string }[] = [];
   storeSession.all?.((err, sessions: any) => {
-   for (const sid in sessions) {
-     const session = sessions[sid];
-     if (session.passport && session.passport.user) {
-      const userId = session.passport.user;
-      result.push({
-        id: userId,
-        sid: sid,
-      });
-      
-   }
-  }
-})
-    res.render("admin", {sessionData: result});
+    for (const sid in sessions) {
+      const session = sessions[sid];
+      if (session.passport && session.passport.user) {
+        const userId = session.passport.user;
+        result.push({
+          userid: userId,
+          sid: sid,
+        });
+      }
+    }
+    res.render("admin", { sessionData: result });
+  });
 });
 
 
-
-
+router.post("/revoke-session/:sid", async (req, res) => {
+  const storeSession = req.sessionStore;
+  const sid = req.params.sid;
+  storeSession.destroy(sid, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+  res.redirect("/admin");
+})
 export default router;

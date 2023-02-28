@@ -4,7 +4,7 @@ const database = [
     name: "Jimmy Smith",
     email: "jimmy123@gmail.com",
     password: "jimmy123!",
-    
+    role: "admin"
 
   },
   {
@@ -12,6 +12,8 @@ const database = [
     name: "Johnny Doe",
     email: "johnny123@gmail.com",
     password: "johnny123!",
+    role: "user"
+    
     
   },
   {
@@ -19,14 +21,14 @@ const database = [
     name: "Jonathan Chen",
     email: "jonathan123@gmail.com",
     password: "jonathan123!",
-     
+    role: "user"
   },
   {
     id: 4,
     name: "Scott Chen",
     email: "ScottChen@gmail.com",
-    password: "ScottChen!"
-    
+    password: "ScottChen!",
+    role: "user"
   }
 ];
 

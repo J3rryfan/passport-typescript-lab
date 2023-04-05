@@ -28,12 +28,12 @@ import indexRoute from "./routes/indexRoute";
 
 // Middleware for express
 app.use(express.json());
-app.use(expressLayouts);
+app.use(expressLayouts); 
 app.use(express.urlencoded({ extended: true }));
 passportMiddleware(app);
 
 app.use((req, res, next) => {
-  console.log(`User details are: `);
+  console.log(`User details are: `); 
   console.log(req.user);
 
   console.log("Entire session object:");

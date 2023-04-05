@@ -5,6 +5,7 @@ import { ensureAuthenticated } from "../middleware/checkAuth";
 // this is the welcome page // 
 router.get("/", (req, res) => {
   res.send("welcome");
+  
 });
 
 
